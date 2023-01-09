@@ -1,7 +1,14 @@
 import { useReducer } from 'react'
-import { ADD_PROJECT, FORM_PROJECT, GET_PROJECTS, CHECK_FORM, CURRENT_PROJECT, DELETE_PROJECT } from '../../types'
-import ProyectContext from './projectContext'
-import projectReducer from './projectReducer'
+import {
+  ADD_PROJECT,
+  FORM_PROJECT,
+  GET_PROJECTS,
+  CHECK_PROJECTFORM,
+  CURRENT_PROJECT,
+  DELETE_PROJECT
+} from '../../types'
+import ProjectContext from './projectContext'
+import ProjectReducer from './projectReducer'
 
 const ProjectState = props => {
   const projects = [
@@ -17,7 +24,7 @@ const ProjectState = props => {
     currentProject: null
   }
 
-  const [state, dispatch] = useReducer(projectReducer, initialState)
+  const [state, dispatch] = useReducer(ProjectReducer, initialState)
 
   const showForm = () => {
     dispatch({
@@ -43,7 +50,7 @@ const ProjectState = props => {
 
   const showError = () => {
     dispatch({
-      type: CHECK_FORM
+      type: CHECK_PROJECTFORM
     })
   }
 
@@ -62,7 +69,7 @@ const ProjectState = props => {
   }
 
   return (
-    <ProyectContext.Provider
+    <ProjectContext.Provider
       value={{
         projects: state.projects,
         form: state.form,
@@ -77,7 +84,7 @@ const ProjectState = props => {
       }}
     >
       {props.children}
-    </ProyectContext.Provider>
+    </ProjectContext.Provider>
   )
 }
 

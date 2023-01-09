@@ -1,5 +1,5 @@
 const { createContext } = require('react')
 
-const ProyectContext = createContext()
+const ProjectContext = createContext()
 
-export default ProyectContext
+export default ProjectContext
