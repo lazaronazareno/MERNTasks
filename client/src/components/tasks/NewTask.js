@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import ProjectContext from '../../context/projects/projectContext'
 
 const NewTask = () => {
   const [project, setProject] = useState({
@@ -6,6 +7,13 @@ const NewTask = () => {
   })
 
   const { name } = project
+
+  const projectsContext = useContext(ProjectContext)
+  const { currentProject } = projectsContext
+
+  if (!currentProject) return null
+
+  const [current] = currentProject
 
   const onChange = (e) => {
     setProject({
@@ -35,13 +43,13 @@ const NewTask = () => {
             value={name}
             onChange={onChange}
           />
-          <label htmlFor='name'>Nombre Proyecto</label>
+          <label htmlFor='name'>Nombre Tarea</label>
         </div>
 
         <button
           type='submit'
           className='btn btn-lg btn-primary'
-        >Agregar proyecto
+        >Agregar tarea
         </button>
       </form>
     </div>
