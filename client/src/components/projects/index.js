@@ -1,17 +1,22 @@
 import React from 'react'
 import Header from '../layout/Header'
 import Sidebar from '../layout/Sidebar'
+import NewTask from '../tasks/NewTask'
+import TaskList from '../tasks/TaskList'
 
 const Projects = () => {
   return (
-    <div className='d-flex bg-secondary vh-100'>
+    <div className='d-flex bg-secondary'>
       <Sidebar />
 
-      <div className='container-fluid p-0'>
+      <div className='container-fluid p-0 vh-100'>
         <Header />
 
-        <main>
-          <h1 className='text-white'>Contenedor principal</h1>
+        <main className='d-flex flex-column bg-dark'>
+          <NewTask />
+          <div className='bg-secondary d-flex flex-column align-items-center'>
+            <TaskList />
+          </div>
         </main>
       </div>
 
