@@ -4,17 +4,20 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Projects from './components/projects'
 import ProjectState from './context/projects/projectState'
+import TaskState from './context/tasks/taskState'
 
 function App () {
   return (
     <ProjectState>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path='/' element={<Login />} />
-          <Route exact path='/register' element={<Register />} />
-          <Route exact path='/proyects' element={<Projects />} />
-        </Routes>
-      </BrowserRouter>
+      <TaskState>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path='/' element={<Login />} />
+            <Route exact path='/register' element={<Register />} />
+            <Route exact path='/projects' element={<Projects />} />
+          </Routes>
+        </BrowserRouter>
+      </TaskState>
     </ProjectState>
   )
 }

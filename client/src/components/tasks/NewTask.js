@@ -1,23 +1,35 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import ProjectContext from '../../context/projects/projectContext'
+import TaskContext from '../../context/tasks/taskContext'
 
 const NewTask = () => {
-  const [project, setProject] = useState({
+  const [task, setTask] = useState({
     name: ''
   })
 
-  const { name } = project
+  const { name } = task
 
   const projectsContext = useContext(ProjectContext)
   const { currentProject } = projectsContext
+
+  const tasksContext = useContext(TaskContext)
+  const { errorForm, currentTask, addTask, showError, getTasksByProject, editTask } = tasksContext
+
+  useEffect(() => {
+    currentTask !== null
+      ? setTask(currentTask)
+      : setTask({
+        name: ''
+      })
+  }, [currentTask])
 
   if (!currentProject) return null
 
   const [current] = currentProject
 
   const onChange = (e) => {
-    setProject({
-      ...project,
+    setTask({
+      ...task,
       [e.target.name]: e.target.value
     })
   }
@@ -25,13 +37,30 @@ const NewTask = () => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (project.trim() === '') return
-    console.log(project)
+    if (name.trim() === '') {
+      showError()
+      return
+    }
+
+    if (!currentTask) {
+      task.projectId = current.id
+      task.checked = false
+      addTask(task)
+    } else {
+      editTask(task)
+    }
+
+    getTasksByProject(current.id)
+
+    setTask({
+      name: ''
+    })
   }
+
   return (
-    <div className='p-3'>
+    <div>
       <form
-        className='d-flex flex-column'
+        className='d-flex flex-column p-3'
         onSubmit={onSubmit}
       >
         <div className='form-floating mb-3'>
@@ -49,9 +78,10 @@ const NewTask = () => {
         <button
           type='submit'
           className='btn btn-lg btn-primary'
-        >Agregar tarea
+        >{currentTask ? 'Editar Tarea' : 'Agregar Tarea'}
         </button>
       </form>
+      {errorForm ? <p className='alert alert-danger mx-3'>El nombre de la tarea es obligatorio</p> : null}
     </div>
   )
 }

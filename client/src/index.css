@@ -9,3 +9,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.task-enter, .project-enter {
+  opacity: 0;
+}
+
+.task-enter-active, .project-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.task-exit, .project-exit {
+  opacity: 1;
+}
+
+.task-exit-active, .project-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
