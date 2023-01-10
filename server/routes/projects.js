@@ -1,6 +1,6 @@
 import express from 'express'
 import * as projectsControllers from '../controllers/projectController.js'
-import { AuthMiddleware } from '../controllers/middleware/auth.js'
+import { AuthMiddleware } from '../middleware/auth.js'
 import { check } from 'express-validator'
 
 const router = express.Router()
