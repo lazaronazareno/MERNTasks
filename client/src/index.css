@@ -27,3 +27,22 @@ code {
   opacity: 0;
   transition: opacity 200ms;
 }
+
+.alert {
+  position: absolute;
+  top: 1vw;
+  right: 1vw;
+  padding: 1rem;
+}
+
+.error {
+  background-color: tomato;
+}
+
+.warning {
+  background-color: sandybrown;
+}
+
+.success {
+  background-color: lightgreen;
+}

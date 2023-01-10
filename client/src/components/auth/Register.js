@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import AlertContext from '../../context/alert/alertContext'
 
 const Register = () => {
+  const alertContext = useContext(AlertContext)
+  const { alert, showAlert } = alertContext
+
   const [values, setValues] = useState({
     name: '',
     email: '',
     password: '',
-    passwordR: ''
+    confirm: ''
   })
-  const [error, setError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState(null)
 
-  const { name, email, password, passwordR } = values
+  const { name, email, password, confirm } = values
 
   const onChange = (e) => {
     setValues({
@@ -23,29 +25,32 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (email.trim() === '' || password.trim() === '' || name.trim() === '' || passwordR.trim() === '') {
-      setError(true)
-      setErrorMessage('Todos los campos son obligatorios')
+    if (email.trim() === '' || password.trim() === '' || name.trim() === '' || confirm.trim() === '') {
+      showAlert('Todos los campos son obligatorios', 'error')
       return
     }
 
     if (password.length < 6) {
-      setError(true)
-      setErrorMessage('La contraseña debe ser mayor a 6 caracteres')
+      showAlert('La contraseña debe ser de al menos 6 caracteres', 'error')
       return
     }
 
-    if (password !== passwordR) {
-      setError(true)
-      setErrorMessage('Las contraseñas no coinciden')
+    if (password !== confirm) {
+      showAlert('Las contraseñas no coinciden', 'error')
       return
     }
 
-    setError(false)
     console.log(e.target.value)
   }
   return (
     <div className='bg-secondary vh-100 w-100 d-flex align-items-center'>
+      {alert
+        ? (
+          <div className={`alert ${alert.category}`}>
+            {alert.msg}
+          </div>
+          )
+        : null}
       <div className='container p-4 rounded bg-light'>
         <h1>Registrarse</h1>
 
@@ -92,13 +97,13 @@ const Register = () => {
             <input
               type='password'
               className='form-control'
-              name='passwordR'
-              id='passwordR'
+              name='confirm'
+              id='confirm'
               placeholder=' '
-              value={passwordR}
+              value={confirm}
               onChange={onChange}
             />
-            <label htmlFor='passwordR'>Repetir Contraseña</label>
+            <label htmlFor='confirm'>Repetir Contraseña</label>
           </div>
 
           <button
