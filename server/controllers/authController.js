@@ -44,3 +44,14 @@ export const authUser = async (req, res) => {
     console.log(error)
   }
 }
+
+export const getAuthUser = async (req, res) => {
+  try {
+    const id = (req.user.id)
+    const user = await User.findOne({ id }).select('-password')
+    res.json({ user })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ msg: 'Hubo un error' })
+  }
+}
