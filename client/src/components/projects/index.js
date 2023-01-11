@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Header from '../layout/Header'
 import Sidebar from '../layout/Sidebar'
 import NewTask from '../tasks/NewTask'
 import TaskList from '../tasks/TaskList'
+import AuthContext from '../../context/auth/authContext'
 
 const Projects = () => {
+  const token = localStorage.getItem('token')
+
+  const authContext = useContext(AuthContext)
+  const { getUser } = authContext
+
+  useEffect(() => {
+    getUser(token)
+  }, [])
+
   return (
     <div className='d-flex bg-secondary'>
       <Sidebar />
