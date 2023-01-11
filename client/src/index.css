@@ -33,14 +33,17 @@ code {
   top: 1vw;
   right: 1vw;
   padding: 1rem;
+  text-transform: uppercase;
 }
 
 .error {
-  background-color: tomato;
+  background-color:crimson ;
+  color: white;
 }
 
 .warning {
   background-color: sandybrown;
+  color: white;
 }
 
 .success {

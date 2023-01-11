@@ -1,10 +1,26 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+
 import AlertContext from '../../context/alert/alertContext'
+import AuthContext from '../../context/auth/authContext'
 
 const Register = () => {
+  const navigate = useNavigate()
+
   const alertContext = useContext(AlertContext)
   const { alert, showAlert } = alertContext
+
+  const authContext = useContext(AuthContext)
+  const { isAuth, error, registerUser } = authContext
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/projects')
+    }
+    if (error) {
+      showAlert(error.msg, error.category)
+    }
+  }, [error, isAuth])
 
   const [values, setValues] = useState({
     name: '',
@@ -40,7 +56,11 @@ const Register = () => {
       return
     }
 
-    console.log(e.target.value)
+    registerUser({
+      name,
+      email,
+      password
+    })
   }
   return (
     <div className='bg-secondary vh-100 w-100 d-flex align-items-center'>
