@@ -32,7 +32,8 @@ export const createTask = async (req, res) => {
 
 export const getTasks = async (req, res) => {
   try {
-    const { project } = req.body
+    const { project } = req.query
+
     const isProject = await Project.findById(project)
 
     if (!isProject) {
@@ -43,7 +44,7 @@ export const getTasks = async (req, res) => {
       return res.status(401).json({ msg: 'No Autorizado' })
     }
 
-    const tasks = await Task.find({ project })
+    const tasks = await Task.find({ project }).sort({ createdAt: -1 })
     res.json(tasks)
   } catch (error) {
     console.log(error)
@@ -73,9 +74,8 @@ export const updateTask = async (req, res) => {
 
     const newTask = {}
 
-    if (name) newTask.name = name
-
-    if (checked) newTask.checked = checked
+    newTask.name = name
+    newTask.checked = checked
 
     task = await Task.findByIdAndUpdate({ _id: req.params.id }, newTask, { new: true })
 
@@ -88,7 +88,7 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async (req, res) => {
   try {
-    const { project } = req.body
+    const { project } = req.query
 
     const task = await Task.findById(req.params.id)
 

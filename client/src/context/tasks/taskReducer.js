@@ -3,7 +3,6 @@ import {
   CHECK_TASKFORM,
   PROJECT_TASKS,
   DELETE_TASK,
-  CHECK_TASK,
   CURRENT_TASK,
   EDIT_TASK
 } from '../../types'
@@ -13,12 +12,12 @@ export default (state, action) => {
     case PROJECT_TASKS:
       return {
         ...state,
-        tasksByProject: state.tasks.filter(task => task.projectId === action.payload)
+        tasksByProject: action.payload
       }
     case ADD_TASK:
       return {
         ...state,
-        tasks: [action.payload, ...state.tasks],
+        tasksByProject: [action.payload, ...state.tasksByProject],
         errorForm: false
       }
     case CHECK_TASKFORM:
@@ -29,13 +28,12 @@ export default (state, action) => {
     case DELETE_TASK:
       return {
         ...state,
-        tasks: state.tasks.filter(task => task.id !== action.payload)
+        tasksByProject: state.tasksByProject.filter(task => task._id !== action.payload)
       }
     case EDIT_TASK:
-    case CHECK_TASK:
       return {
         ...state,
-        tasks: state.tasks.map(task => task.id === action.payload.id ? action.payload : task),
+        tasksByProject: state.tasksByProject.map(task => task._id === action.payload._id ? action.payload : task),
         currentTask: null
       }
     case CURRENT_TASK:

@@ -13,7 +13,7 @@ const NewTask = () => {
   const { currentProject } = projectsContext
 
   const tasksContext = useContext(TaskContext)
-  const { errorForm, currentTask, addTask, showError, getTasksByProject, editTask } = tasksContext
+  const { errorForm, currentTask, addTask, showError, editTask } = tasksContext
 
   useEffect(() => {
     currentTask !== null
@@ -43,14 +43,11 @@ const NewTask = () => {
     }
 
     if (!currentTask) {
-      task.projectId = current.id
-      task.checked = false
+      task.project = current._id
       addTask(task)
     } else {
       editTask(task)
     }
-
-    getTasksByProject(current.id)
 
     setTask({
       name: ''
