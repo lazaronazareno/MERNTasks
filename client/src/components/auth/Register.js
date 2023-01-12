@@ -66,7 +66,7 @@ const Register = () => {
     <div className='bg-secondary vh-100 w-100 d-flex align-items-center'>
       {alert
         ? (
-          <div className={`alert ${alert.category}`}>
+          <div className={`error-alert ${alert.category}`}>
             {alert.msg}
           </div>
           )

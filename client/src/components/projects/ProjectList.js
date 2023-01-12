@@ -25,7 +25,7 @@ const ProjectList = () => {
       {
         alert
           ? (
-            <div className={`alert ${alert.category}`}>
+            <div className={`error-alert ${alert.category}`}>
               {alert.msg}
             </div>
             )

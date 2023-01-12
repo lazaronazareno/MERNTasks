@@ -28,7 +28,7 @@ code {
   transition: opacity 200ms;
 }
 
-.alert {
+.error-alert {
   position: absolute;
   top: 1vw;
   right: 1vw;
