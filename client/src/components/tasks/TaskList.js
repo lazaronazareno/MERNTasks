@@ -16,14 +16,14 @@ const TaskList = () => {
   const [current] = currentProject
 
   const handleDelete = () => {
-    deleteProject(current.id)
+    deleteProject(current._id)
   }
   return (
     <>
       <h1 className='p-3'> Proyectos : {current.name}</h1>
       <>
         {tasksByProject.length === 0
-          ? <p className='d-flex p-3  bg-light gap-2 align-items-center'>No hay tareas</p>
+          ? <p className='d-flex w-75 p-3 bg-light gap-2 align-items-center'>No hay tareas</p>
           : (
             <TransitionGroup
               className='d-flex flex-column w-75 gap-2 m-4'
