@@ -11,10 +11,12 @@ import AuthReducer from './authReducer'
 import AuthContext from './authContext'
 import clientAxios from '../../config/axios'
 import { tokenAuth } from '../../config/tokenAuth'
+import useToken from '../../hooks/useToken'
 
 const AuthState = props => {
+  const { token, setToken, deleteToken } = useToken()
   const initialState = {
-    token: localStorage.getItem('token'),
+    token,
     isAuth: null,
     user: null,
     error: null,
@@ -27,9 +29,10 @@ const AuthState = props => {
     try {
       const response = await clientAxios.post('/api/users/', values)
 
+      setToken(response.data.token)
+
       dispatch({
-        type: SUCCESS_REGISTER,
-        payload: response.data
+        type: SUCCESS_REGISTER
       })
 
       getUser(response.data.token)
@@ -38,6 +41,8 @@ const AuthState = props => {
         msg: error.response.data.msg,
         category: 'error'
       }
+
+      deleteToken()
 
       dispatch({
         type: ERROR_REGISTER,
@@ -59,7 +64,7 @@ const AuthState = props => {
         payload: response.data.user
       })
     } catch (error) {
-      console.log(error)
+      deleteToken()
 
       dispatch({
         type: ERROR_LOGIN
@@ -71,9 +76,10 @@ const AuthState = props => {
     try {
       const response = await clientAxios.post('/api/auth/', values)
 
+      setToken(response.data.token)
+
       dispatch({
-        type: SUCCESS_LOGIN,
-        payload: response.data
+        type: SUCCESS_LOGIN
       })
 
       getUser(response.data.token)
@@ -83,6 +89,8 @@ const AuthState = props => {
         category: 'error'
       }
 
+      deleteToken()
+
       dispatch({
         type: ERROR_LOGIN,
         payload: alert
@@ -91,6 +99,8 @@ const AuthState = props => {
   }
 
   const logout = () => {
+    deleteToken()
+
     dispatch({
       type: HANDLE_LOGOUT
     })

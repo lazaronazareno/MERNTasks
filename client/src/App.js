@@ -10,13 +10,14 @@ import ProjectState from './context/projects/projectState'
 import TaskState from './context/tasks/taskState'
 
 import PrivateRoute from './components/routes/privateRoute'
-
-const token = localStorage.getItem('token')
-if (token) {
-  tokenAuth(token)
-}
+import useToken from './hooks/useToken'
 
 function App () {
+  const { token } = useToken()
+
+  if (token) {
+    tokenAuth(token)
+  }
   return (
     <ProjectState>
       <TaskState>

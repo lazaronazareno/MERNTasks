@@ -4,9 +4,10 @@ import Sidebar from '../layout/Sidebar'
 import NewTask from '../tasks/NewTask'
 import TaskList from '../tasks/TaskList'
 import AuthContext from '../../context/auth/authContext'
+import useToken from '../../hooks/useToken'
 
 const Projects = () => {
-  const token = localStorage.getItem('token')
+  const { token } = useToken()
 
   const authContext = useContext(AuthContext)
   const { getUser } = authContext

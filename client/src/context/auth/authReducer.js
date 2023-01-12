@@ -11,7 +11,6 @@ export default (state, action) => {
   switch (action.type) {
     case SUCCESS_REGISTER:
     case SUCCESS_LOGIN:
-      localStorage.setItem('token', action.payload.token)
       return {
         ...state,
         isAuth: true,
@@ -21,7 +20,6 @@ export default (state, action) => {
     case ERROR_LOGIN:
     case ERROR_REGISTER:
     case HANDLE_LOGOUT:
-      localStorage.removeItem('token')
       return {
         ...state,
         token: null,

@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import AuthContext from '../../context/auth/authContext'
+import useToken from '../../hooks/useToken'
 
 const Header = () => {
-  const token = localStorage.getItem('token')
+  const { token } = useToken()
 
   const authContext = useContext(AuthContext)
   const { user, getUser, logout } = authContext
