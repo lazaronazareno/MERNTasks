@@ -7,7 +7,8 @@ import {
   CHECK_TASKFORM,
   DELETE_TASK,
   CURRENT_TASK,
-  EDIT_TASK
+  EDIT_TASK,
+  ERROR_TASK
 } from '../../types'
 import clientAxios from '../../config/axios'
 
@@ -15,7 +16,8 @@ const TaskState = (props) => {
   const initialState = {
     tasksByProject: [],
     errorForm: false,
-    currentTask: null
+    currentTask: null,
+    error: null
   }
 
   const [state, dispatch] = useReducer(TaskReducer, initialState)
@@ -29,21 +31,35 @@ const TaskState = (props) => {
         payload: response.data
       })
     } catch (error) {
-      console.log(error)
+      const alert = {
+        msg: error.response.data,
+        category: 'error'
+      }
+
+      dispatch({
+        type: ERROR_TASK,
+        payload: alert
+      })
     }
   }
 
   const addTask = async (task) => {
-    console.log(task)
     try {
       const response = await clientAxios.post('/api/tasks', task)
-      console.log(response)
       dispatch({
         type: ADD_TASK,
-        payload: task
+        payload: response.data
       })
     } catch (error) {
-      console.log(error)
+      const alert = {
+        msg: error.response.data,
+        category: 'error'
+      }
+
+      dispatch({
+        type: ERROR_TASK,
+        payload: alert
+      })
     }
   }
 
@@ -61,7 +77,15 @@ const TaskState = (props) => {
         payload: taskId
       })
     } catch (error) {
-      console.log(error)
+      const alert = {
+        msg: error.response.data,
+        category: 'error'
+      }
+
+      dispatch({
+        type: ERROR_TASK,
+        payload: alert
+      })
     }
   }
 
@@ -73,18 +97,23 @@ const TaskState = (props) => {
   }
 
   const editTask = async (task) => {
-    console.log(task)
-
     try {
       const response = await clientAxios.put(`/api/tasks/${task._id}`, task)
-      console.log(response)
 
       dispatch({
         type: EDIT_TASK,
         payload: response.data.task
       })
     } catch (error) {
-      console.log(error)
+      const alert = {
+        msg: error.response.data,
+        category: 'error'
+      }
+
+      dispatch({
+        type: ERROR_TASK,
+        payload: alert
+      })
     }
   }
 

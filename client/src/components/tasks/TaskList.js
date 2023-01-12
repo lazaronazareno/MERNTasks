@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Task from './Task'
 import ProjectContext from '../../context/projects/projectContext'
 import TaskContext from '../../context/tasks/taskContext'
+import AlertContext from '../../context/alert/alertContext'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const TaskList = () => {
@@ -9,7 +10,16 @@ const TaskList = () => {
   const { currentProject, deleteProject } = projectsContext
 
   const tasksContext = useContext(TaskContext)
-  const { tasksByProject } = tasksContext
+  const { tasksByProject, error } = tasksContext
+
+  const alertContext = useContext(AlertContext)
+  const { alert, showAlert } = alertContext
+
+  useEffect(() => {
+    if (error) {
+      showAlert(error.msg, error.category)
+    }
+  }, [error])
 
   if (!currentProject) return <h1 className='p-3'>Selecciona un Proyecto</h1>
 
@@ -21,6 +31,15 @@ const TaskList = () => {
   return (
     <>
       <h1 className='p-3'> Proyectos : {current.name}</h1>
+      {
+        alert
+          ? (
+            <div className={`error-alert ${alert.category}`}>
+              {alert.msg}
+            </div>
+            )
+          : null
+      }
       <>
         {tasksByProject.length === 0
           ? <p className='d-flex w-75 p-3 bg-light gap-2 align-items-center'>No hay tareas</p>

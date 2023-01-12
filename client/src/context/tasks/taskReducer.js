@@ -4,7 +4,8 @@ import {
   PROJECT_TASKS,
   DELETE_TASK,
   CURRENT_TASK,
-  EDIT_TASK
+  EDIT_TASK,
+  ERROR_TASK
 } from '../../types'
 
 export default (state, action) => {
@@ -41,7 +42,11 @@ export default (state, action) => {
         ...state,
         currentTask: action.payload
       }
-
+    case ERROR_TASK:
+      return {
+        ...state,
+        error: action.payload
+      }
     default:
       return state
   }

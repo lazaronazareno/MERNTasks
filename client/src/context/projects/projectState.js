@@ -32,7 +32,6 @@ const ProjectState = props => {
   const getProjects = async () => {
     try {
       const response = await clientAxios.get('/api/projects')
-      console.log(response.data)
       dispatch({
         type: GET_PROJECTS,
         payload: response.data
@@ -53,7 +52,6 @@ const ProjectState = props => {
   const addProject = async (project) => {
     try {
       const response = await clientAxios.post('/api/projects', project)
-      console.log(response)
       dispatch({
         type: ADD_PROJECT,
         payload: response.data
