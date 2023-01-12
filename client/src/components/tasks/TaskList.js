@@ -30,7 +30,7 @@ const TaskList = () => {
   }
   return (
     <>
-      <h1 className='p-3'> Proyectos : {current.name}</h1>
+      <h1 className='p-3'>{current.name}</h1>
       {
         alert
           ? (

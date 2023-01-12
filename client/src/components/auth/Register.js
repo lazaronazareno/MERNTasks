@@ -71,7 +71,7 @@ const Register = () => {
           </div>
           )
         : null}
-      <div className='container p-4 rounded bg-light'>
+      <div className='container p-4 rounded bg-light text-center'>
         <h1>Registrarse</h1>
 
         <form
@@ -128,12 +128,12 @@ const Register = () => {
 
           <button
             type='submit'
-            className='btn btn-secondary'
+            className='btn btn-primary w-100'
           >Obtener Cuenta
           </button>
         </form>
 
-        <Link to='/' className='card-link'>Iniciar Sesion</Link>
+        <Link to='/' className='btn btn-link w-100'>Iniciar Sesion</Link>
       </div>
     </div>
   )

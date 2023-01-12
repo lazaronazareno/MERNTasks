@@ -55,7 +55,7 @@ const Login = () => {
           </div>
           )
         : null}
-      <div className='container p-4 rounded bg-light'>
+      <div className='container p-4 rounded bg-light text-center'>
         <h1>Iniciar Sesion</h1>
 
         <form
@@ -88,12 +88,12 @@ const Login = () => {
 
           <button
             type='submit'
-            className='btn btn-secondary'
+            className='btn btn-primary w-100 mb-2'
           >Iniciar Sesion
           </button>
         </form>
 
-        <Link to='/register' className='card-link'>Registrarse</Link>
+        <Link to='/register' className='btn btn-link w-100'>Registrarse</Link>
       </div>
     </div>
   )

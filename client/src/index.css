@@ -1,3 +1,11 @@
+:root {
+  --header: #005f73;
+  --form: #0a9396;
+  --main: #90e0ef;
+  --details: #ee9b00;
+  --hover : #ca6702;
+}
+
 body {
   margin: 0;
   font-family: 'Chivo', sans-serif;
@@ -8,6 +16,101 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr 50px;
+  grid-template-areas:
+    'header'
+    'main';
+  height: 100vh;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 240px;
+  position: fixed;
+  overflow-y: auto;
+  transform: translateX(-245px);
+  transition: all .6s ease-in-out;
+  z-index: 2; /* Needs to sit above the hamburger menu icon */
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar__close-icon {
+  position: absolute;
+  visibility: visible;
+  top: 5px;
+  right: 0.5rem;
+  width: 2rem;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background-color: var(--header);
+}
+
+.menu-icon {
+  position: relative;
+  display: flex;
+  z-index: 1;
+  cursor: pointer;
+  padding: 12px;
+  width: 3rem;
+}
+
+main {
+  grid-area: main;
+  background-color: var(--main);
+}
+
+.form {
+  background-color: var(--form);
+}
+
+.form-control:focus {
+  border-color: var(--details);
+  outline: 0;
+  box-shadow: 0 0 0 0.15rem var(--details);
+}
+
+.btn-link, .btn-primary {
+  font-size: 1.2rem;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--details);
+  color: black;
+}
+
+.btn-primary:hover {
+  background-color: var(--hover);
+  color: white;
+}
+
+.btn-link {
+  color: var(--details);
+}
+
+.btn-link:hover {
+  background-color: var(--hover);
+  color: white;
 }
 
 .task-enter, .project-enter {
@@ -48,4 +151,27 @@ code {
 
 .success {
   background-color: lightgreen;
+}
+
+@media only screen and (min-width: 46.875em) {
+  /* Show the sidebar */
+  .dashboard {
+    grid-template-columns: 240px 1fr;
+    grid-template-areas:
+      "sidebar header"
+      "sidebar main";
+  }
+
+  .sidebar {
+    position: relative;
+    transform: translateX(0);
+  }
+
+  .sidebar__close-icon {
+    visibility: hidden;
+  }
+
+  .menu-icon {
+    display: none;
+  }
 }

@@ -18,7 +18,7 @@ const Project = ({ project }) => {
   return (
     <li className='d-flex'>
       <button
-        className='btn btn-link'
+        className='btn btn-link w-100'
         onClick={() => setProject(project._id)}
       >{project.name}
       </button>

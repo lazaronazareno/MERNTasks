@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import AuthContext from '../../context/auth/authContext'
 import useToken from '../../hooks/useToken'
+import menu from '../../assets/menu.png'
 
-const Header = () => {
+const Header = ({ toggleNav }) => {
   const { token } = useToken()
 
   const authContext = useContext(AuthContext)
@@ -12,10 +13,20 @@ const Header = () => {
     getUser(token)
   }, [])
   return (
-    <header className='container-fluid w-100 p-3 bg-info d-flex justify-content-between'>
+    <header className='header w-100 p-3 text-white d-flex justify-content-between'>
       {
         user
-          ? <p className='fs-3'>Hola <span>{user.name}</span></p>
+          ? (
+            <div className='d-flex align-items-center'>
+              <img
+                src={menu}
+                alt='menu-icon Hamburger icons created by azmianshori - Flaticon'
+                className='menu-icon'
+                onClick={toggleNav}
+              />
+              <h1 className='m-0 fs-3'>Hola <span>{user.name}</span></h1>
+            </div>
+            )
           : null
       }
       <nav>

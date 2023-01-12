@@ -55,9 +55,9 @@ const NewTask = () => {
   }
 
   return (
-    <div>
+    <>
       <form
-        className='d-flex flex-column p-3'
+        className='d-flex flex-column p-4 form'
         onSubmit={onSubmit}
       >
         <div className='form-floating mb-3'>
@@ -79,7 +79,7 @@ const NewTask = () => {
         </button>
       </form>
       {errorForm ? <p className='alert alert-danger mx-3'>El nombre de la tarea es obligatorio</p> : null}
-    </div>
+    </>
   )
 }
 
